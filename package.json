@@ -1,0 +1,9 @@
+{
+  "name": "softlab-landing",
+  "private": true,
+  "version": "1.0.0",
+  "description": "가공 견적산출 Pro 마케팅 랜딩 (softlab.ai.kr)",
+  "scripts": {
+    "preview": "npx serve ."
+  }
+}

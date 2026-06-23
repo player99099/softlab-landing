@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>가공 견적산출 Pro | CNC·MCT 가공 견적, 이제 5분이면 끝납니다</title>
+<meta name="description" content="가공 견적산출 Pro는 CNC·MCT 견적 기준을 정리하고 소재비, 가공비, 후처리, 네고 금액, 견적서 PDF 출력, 이력 관리를 돕는 현장용 웹 견적 계산기입니다.">
+<meta name="keywords" content="CNC 견적 프로그램, MCT 견적, 가공 견적 자동 계산, 임가공 견적 프로그램, 기계가공 견적, 금속가공 견적">
+<meta property="og:title" content="가공 견적산출 Pro — CNC·MCT 견적 5분이면 끝">
+<meta property="og:description" content="CNC·MCT 가공 견적 기준을 정리하는 현장용 웹 견적 계산기. 소재비·가공비·후처리·견적서 출력까지.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://softlab.ai.kr/">
+<meta property="og:locale" content="ko_KR">
+<link rel="canonical" href="https://softlab.ai.kr/">
+<meta name="theme-color" content="#0f1e35">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"SoftwareApplication",
+  "name":"가공 견적산출 Pro",
+  "applicationCategory":"BusinessApplication",
+  "operatingSystem":"Web browser",
+  "description":"CNC·MCT 가공 견적 기준을 정리하는 현장용 웹 견적 계산기",
+  "url":"https://quote.softlab.ai.kr",
+  "sameAs":"https://softlab.ai.kr",
+  "offers":{"@type":"Offer","price":"99000","priceCurrency":"KRW","url":"https://kmong.com/gig/778137"}
+}
+</script>
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Pretendard',-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+  font-size:16px;
+  color:#172033;
+  background:#f3f7fc;
+  line-height:1.7;
+  word-break:keep-all;
+}
+a{color:inherit;text-decoration:none}
+
+/* ── VARIABLES ── */
+:root{
+  --navy:#0f1e35;
+  --navy2:#162a45;
+  --blue:#2a7fda;
+  --blue2:#1d4ed8;
+  --gold:#f5a623;
+  --gold2:#d4871a;
+  --white:#fff;
+  --bg:#f3f7fc;
+  --bg2:#eef4fb;
+  --muted:#5a6a7e;
+  --border:#dde4ed;
+  --card:#ffffff;
+  --r:24px;
+  --r-sm:14px;
+}
+
+/* ── LAYOUT ── */
+.wrap{width:min(1080px,calc(100% - 40px));margin:auto}
+
+/* ── NAV ── */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(15,30,53,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.navin{height:64px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-size:16px;font-weight:800;color:#fff;letter-spacing:-.3px;display:flex;align-items:center;gap:10px}
+.brand-dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.navlinks{display:flex;align-items:center;gap:24px;font-size:14px;font-weight:600;color:rgba(255,255,255,.55)}
+.navlinks a:hover{color:#fff}
+.nav-cta{
+  background:var(--gold);color:var(--navy);
+  font-size:13px;font-weight:800;
+  padding:9px 22px;border-radius:6px;
+  transition:all .2s;white-space:nowrap
+}
+.nav-cta:hover{background:var(--gold2);color:#fff}
+
+/* ── HERO ── */
+.hero{
+  background:var(--navy);
+  padding:72px 2rem 80px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 50% at 50% 110%,rgba(42,127,218,.2) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:52px;align-items:center}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(42,127,218,.15);border:1px solid rgba(42,127,218,.35);
+  color:#7bbef5;font-size:12px;font-weight:700;
+  padding:6px 14px;border-radius:20px;
+  margin-bottom:24px;letter-spacing:.5px;text-transform:uppercase;
+}
+.hero h1{
+  font-size:clamp(30px,5vw,58px);font-weight:900;
+  color:#fff;line-height:1.15;letter-spacing:-1.5px;
+  margin-bottom:16px;
+}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero-lead{
+  font-size:clamp(15px,1.8vw,18px);
+  color:rgba(255,255,255,.62);
+  line-height:1.75;margin-bottom:36px;max-width:480px;
+}
+.hero-btns{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:40px}
+.btn-gold{
+  background:var(--gold);color:var(--navy);
+  font-size:16px;font-weight:800;
+  padding:16px 36px;border-radius:8px;
+  transition:all .2s;
+}
+.btn-gold:hover{background:var(--gold2);color:#fff;transform:translateY(-1px)}
+.btn-ghost{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+  color:rgba(255,255,255,.8);font-size:15px;font-weight:600;
+  padding:16px 28px;border-radius:8px;transition:all .2s;
+}
+.btn-ghost:hover{background:rgba(255,255,255,.14)}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.6);font-size:13px;font-weight:600;
+  padding:7px 13px;border-radius:20px;
+}
+
+/* hero right — stat card */
+.hero-card{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--r);padding:28px;
+}
+.hero-card-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.45);margin-bottom:20px;letter-spacing:.5px;text-transform:uppercase}
+.hero-rows{display:grid;gap:10px;margin-bottom:20px}
+.hero-row{
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;padding:13px 16px;
+  font-size:14px;color:rgba(255,255,255,.7);font-weight:600;
+}
+.hero-row b{color:var(--gold);font-weight:800}
+.hero-total{
+  background:var(--blue);border-radius:14px;padding:18px 20px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.hero-total span{font-size:13px;font-weight:700;color:rgba(255,255,255,.75)}
+.hero-total strong{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.5px}
+
+/* ── SECTION COMMON ── */
+.section{padding:72px 2rem}
+.section-alt{background:var(--bg2)}
+.section-white{background:#fff}
+
+.tag{
+  display:inline-block;
+  font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--blue);background:rgba(42,127,218,.1);
+  padding:4px 12px;border-radius:20px;margin-bottom:14px;
+}
+.section-head{margin-bottom:40px}
+.section-head.center{text-align:center}
+.section-head.center .section-desc{margin:0 auto}
+h2.title{
+  font-size:clamp(24px,3.5vw,40px);font-weight:900;
+  letter-spacing:-1px;line-height:1.25;margin-bottom:10px;
+}
+.section-desc{font-size:17px;color:var(--muted);line-height:1.75;max-width:580px}
+
+/* ── PAIN ── */
+.pain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.pain-card{
+  background:#fff;border:1.5px solid #f0d0d0;
+  border-radius:var(--r-sm);padding:22px;
+  display:flex;gap:14px;
+}
+.pain-emo{font-size:22px;flex-shrink:0;line-height:1;margin-top:2px}
+.pain-card p{font-size:14px;line-height:1.65;color:#40516a}
+.pain-card p strong{display:block;font-size:15px;font-weight:800;color:#c0392b;margin-bottom:4px}
+
+/* ── STATS (counter) ── */
+.counter-section{background:var(--navy);padding:56px 2rem}
+.counter-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:1px;background:rgba(255,255,255,.08);
+  border-radius:var(--r);overflow:hidden;
+  border:1px solid rgba(255,255,255,.1);
+  max-width:860px;margin:0 auto;
+}
+.counter-cell{
+  background:#0f1e35;padding:36px 24px;text-align:center;
+}
+.c-num{font-size:44px;font-weight:900;color:#fff;line-height:1;margin-bottom:6px;font-variant-numeric:tabular-nums}
+.c-num .gold{color:var(--gold)}
+.c-label{font-size:13px;color:rgba(255,255,255,.45);font-weight:600}
+
+/* ── FEATURES ── */
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.feat-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r-sm);padding:26px 22px;
+  transition:transform .2s,box-shadow .2s;
+}
+.feat-card:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(15,30,53,.1)}
+.feat-card.hi{border-color:var(--blue);border-width:2px}
+.feat-ico{
+  width:42px;height:42px;border-radius:10px;
+  background:rgba(42,127,218,.1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;margin-bottom:14px;
+}
+.feat-card h3{font-size:17px;font-weight:800;margin-bottom:7px;letter-spacing:-.3px}
+.feat-card p{font-size:14px;color:var(--muted);line-height:1.65}
+
+/* ── HONEST BOX ── */
+.honest-wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:20px;align-items:stretch}
+.honest-left{
+  background:var(--navy);border-radius:var(--r);padding:36px 32px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.honest-left p{
+  font-size:clamp(20px,2.8vw,32px);font-weight:900;
+  color:#fff;line-height:1.3;letter-spacing:-.5px;
+}
+.honest-notice{
+  background:#fff7ed;border:1px solid #fed7aa;color:#7c2d12;
+  border-radius:var(--r-sm);padding:20px 22px;
+  font-size:15px;font-weight:700;line-height:1.7;
+  margin-bottom:16px;
+}
+.honest-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.honest-card{
+  background:#fff;border:1px solid var(--border);
+  border-radius:var(--r-sm);padding:18px 14px;text-align:center;
+}
+.honest-card .mark{
+  font-size:12px;font-weight:800;color:var(--blue);
+  background:rgba(42,127,218,.1);width:28px;height:28px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  margin:0 auto 10px;
+}
+.honest-card h4{font-size:14px;font-weight:800;margin-bottom:4px}
+.honest-card p{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* ── FLOW ── */
+.flow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.flow-step{
+  background:#fff;border:1px solid var(--border);
+  border-radius:var(--r-sm);padding:22px 18px;position:relative;
+}
+.flow-num{font-size:11px;font-weight:800;color:var(--blue);letter-spacing:.5px;margin-bottom:10px}
+.flow-step h3{font-size:18px;font-weight:900;letter-spacing:-.3px;margin-bottom:8px}
+.flow-step p{font-size:13px;color:var(--muted);line-height:1.6}
+.flow-time{
+  display:inline-block;margin-top:10px;
+  font-size:11px;font-weight:700;color:var(--blue);
+  background:rgba(42,127,218,.1);padding:3px 10px;border-radius:20px;
+}
+
+/* ── PROBLEM ── */
+.prob-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.prob-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:28px}
+.prob-card.dark{background:var(--navy);border-color:transparent}
+.prob-card h3{font-size:18px;font-weight:800;margin-bottom:16px;color:inherit}
+.prob-card.dark h3{color:#fff}
+.prob-list{display:grid;gap:10px}
+.prob-item{
+  display:flex;gap:11px;align-items:flex-start;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;padding:12px 14px;
+  font-size:14px;color:#cbd5e1;font-weight:600;line-height:1.55;
+}
+.prob-item.light{background:#f8fbff;border-color:#e2e8f0;color:#40516a}
+.prob-item .dot{font-size:16px;font-weight:900;color:#93c5fd;flex-shrink:0;margin-top:1px}
+.prob-item.light .dot{color:var(--blue)}
+
+/* ── PRICE ── */
+.price-outer{display:flex;justify-content:center;margin-top:44px}
+.price-card{
+  background:#fff;border:2px solid var(--navy);
+  border-radius:28px;padding:48px 52px;
+  max-width:440px;width:100%;text-align:center;position:relative;
+}
+.price-badge-top{
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  background:var(--gold);color:var(--navy);
+  font-size:12px;font-weight:800;padding:5px 20px;border-radius:20px;white-space:nowrap;
+}
+.price-plan{font-size:13px;font-weight:700;color:var(--blue);letter-spacing:1px;text-transform:uppercase;margin-bottom:18px}
+.price-num{font-size:52px;font-weight:900;color:var(--navy);line-height:1;letter-spacing:-2px;margin-bottom:4px}
+.price-sub{font-size:14px;color:var(--muted);margin-bottom:32px}
+.price-sub strong{color:var(--navy)}
+.price-list{list-style:none;text-align:left;margin-bottom:32px}
+.price-list li{
+  font-size:15px;padding:9px 0;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;
+}
+.price-list li:last-child{border-bottom:none}
+.price-list li::before{
+  content:'✓';font-size:12px;font-weight:900;color:var(--blue);
+  background:rgba(42,127,218,.12);border-radius:50%;
+  min-width:22px;height:22px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.btn-buy{
+  display:block;width:100%;
+  background:var(--navy);color:#fff;
+  font-size:16px;font-weight:800;
+  padding:17px;border-radius:10px;
+  transition:all .2s;text-align:center;
+}
+.btn-buy:hover{background:var(--blue);transform:translateY(-1px)}
+.price-note{font-size:12px;color:var(--muted);margin-top:14px;line-height:1.7}
+
+/* ── FAQ ── */
+.faq-list{display:grid;gap:10px;max-width:720px;margin:0 auto}
+details{
+  background:rgba(255,255,255,.85);border:1px solid var(--border);
+  border-radius:16px;padding:18px 22px;
+}
+summary{cursor:pointer;font-size:16px;font-weight:800;letter-spacing:-.2px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:'＋';float:right;color:var(--blue);font-size:18px;line-height:1}
+details[open] summary::after{content:'－'}
+details p{margin-top:12px;font-size:15px;color:var(--muted);line-height:1.75;font-weight:600}
+
+/* ── CTA BOTTOM ── */
+.cta-bottom{
+  background:linear-gradient(135deg,#0f1e35,#1e3a8a);
+  border-radius:32px;padding:56px 48px;
+  display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center;
+  margin:0 2rem 56px;
+}
+.cta-bottom h2{
+  font-size:clamp(24px,3.5vw,42px);font-weight:900;
+  color:#fff;letter-spacing:-.8px;line-height:1.25;margin-bottom:12px;
+}
+.cta-bottom h2 em{font-style:normal;color:var(--gold)}
+.cta-bottom p{font-size:16px;color:rgba(255,255,255,.6);line-height:1.7}
+.cta-actions{display:flex;flex-direction:column;gap:12px}
+.cta-actions .btn-gold{font-size:16px;padding:17px 28px;text-align:center;border-radius:10px}
+.cta-actions .btn-ghost{font-size:15px;padding:15px 28px;text-align:center;border-radius:10px}
+
+/* ── FOOTER ── */
+footer{background:#09131f;padding:36px 2rem;text-align:center}
+footer p{font-size:13px;color:rgba(255,255,255,.28);line-height:1.9}
+footer a{color:rgba(255,255,255,.5)}
+footer a:hover{color:#fff}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .navlinks{display:none}
+  .hero-inner,.honest-wrap,.prob-grid,.cta-bottom{grid-template-columns:1fr}
+  .flow-grid{grid-template-columns:1fr 1fr}
+  .hero{padding:52px 1.25rem 64px}
+}
+@media(max-width:580px){
+  .wrap{width:calc(100% - 28px)}
+  .section{padding:52px 1.25rem}
+  .flow-grid,.honest-cards{grid-template-columns:1fr}
+  .price-card{padding:40px 24px}
+  .price-num{font-size:40px}
+  .cta-bottom{padding:36px 28px;margin:0 1rem 40px}
+  .hero-btns{flex-direction:column}
+  .btn-gold,.btn-ghost{text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap navin">
+    <div class="brand">
+      <div class="brand-dot"></div>
+      가공 견적산출 Pro
+    </div>
+    <div class="navlinks">
+      <a href="#why">왜 필요한가</a>
+      <a href="#features">주요 기능</a>
+      <a href="#process">사용 흐름</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a href="https://kmong.com/gig/778137" class="nav-cta" target="_blank" rel="noopener">크몽에서 구매 →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="hero-eyebrow">CNC · MCT 가공업체 전용</div>
+      <h1>
+        견적 내는 데<br>
+        아직도 <em>1시간</em><br>
+        쓰고 있나요?
+      </h1>
+      <p class="hero-lead">
+        가공 견적산출 Pro는 소재비·가공비·후처리·네고 금액을 한 흐름으로 정리하고, 견적서까지 즉시 출력하는 현장용 웹 견적 계산기입니다.
+      </p>
+      <div class="hero-btns">
+        <a href="https://kmong.com/gig/778137" class="btn-gold" target="_blank" rel="noopener">크몽에서 구매하기 →</a>
+        <a href="https://quote.softlab.ai.kr" class="btn-ghost" target="_blank" rel="noopener">무료 체험해보기</a>
+      </div>
+      <div class="hero-chips">
+        <span class="chip">설치 없이 웹 접속</span>
+        <span class="chip">빠른 견적 · 정밀 견적</span>
+        <span class="chip">PDF 견적서 출력</span>
+        <span class="chip">견적 이력 관리</span>
+      </div>
+    </div>
+    <div>
+      <div class="hero-card">
+        <div class="hero-card-title">견적 계산 결과 예시</div>
+        <div class="hero-rows">
+          <div class="hero-row"><span>소재비 (SUS304 봉재)</span><b>12,400원</b></div>
+          <div class="hero-row"><span>MCT 가공비</span><b>38,000원</b></div>
+          <div class="hero-row"><span>후처리 (아노다이징)</span><b>5,200원</b></div>
+          <div class="hero-row"><span>네고 적용 (5%)</span><b>−2,780원</b></div>
+        </div>
+        <div class="hero-total">
+          <span>최종 견적가 (EA)</span>
+          <strong>52,820원</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN -->
+<section class="section section-alt" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">이런 상황, 낯설지 않으신가요?</div>
+      <h2 class="title">견적 하나 내려다<br>반나절이 사라집니다</h2>
+      <p class="section-desc">엑셀 파일 찾고, 단가 뒤지고, 계산 다시 하고 — 현장에 있어야 할 시간을 견적 작업에 쓰고 있습니다.</p>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-emo">😓</div>
+        <p><strong>재질 단가 계산이 너무 복잡하다</strong>봉재·판재·파이프별로 단가도 다르고, 수율 계산도 제각각이라 실수가 잦습니다.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-emo">🔄</div>
+        <p><strong>MCT·CNC 가공비를 매번 손으로 계산한다</strong>절삭 시간 계산식을 외우거나, 감으로 넣는 경우가 대부분입니다.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-emo">📄</div>
+        <p><strong>견적서 양식이 사람마다 다르다</strong>담당자마다 엑셀 파일이 달라 고객사에 나가는 견적서 형식이 들쑥날쑥합니다.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-emo">🔍</div>
+        <p><strong>예전 견적 찾는 데만 10분이 걸린다</strong>파일명도 기억 안 나고, 어느 폴더에 저장했는지도 모릅니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM vs SOLUTION -->
+<section class="section section-white">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="tag">Before / After</div>
+      <h2 class="title">견적이 흔들리는 이유는<br>계산보다 기준 때문입니다</h2>
+    </div>
+    <div class="prob-grid">
+      <div class="prob-card dark">
+        <h3>엑셀 견적에서 자주 생기는 문제</h3>
+        <div class="prob-list">
+          <div class="prob-item"><span class="dot">•</span><span>파일이 여러 개라 어느 것이 최신인지 헷갈림</span></div>
+          <div class="prob-item"><span class="dot">•</span><span>임율·재질 단가·후처리 기준이 사람마다 다름</span></div>
+          <div class="prob-item"><span class="dot">•</span><span>이전 견적을 찾고 재활용하는 데 시간이 걸림</span></div>
+          <div class="prob-item"><span class="dot">•</span><span>기준가와 네고가를 따로 정리해야 함</span></div>
+        </div>
+      </div>
+      <div class="prob-card">
+        <h3>가공 견적산출 Pro의 방향</h3>
+        <div class="prob-list">
+          <div class="prob-item light"><span class="dot">✓</span><span>회사 기준값을 설정하고 견적 흐름을 통일</span></div>
+          <div class="prob-item light"><span class="dot">✓</span><span>소재비, 가공비, 후처리, 네고 금액을 한 화면에서 확인</span></div>
+          <div class="prob-item light"><span class="dot">✓</span><span>저장한 견적을 검색·필터·재활용</span></div>
+          <div class="prob-item light"><span class="dot">✓</span><span>견적서 PDF 출력으로 제출 자료 즉시 정리</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTER -->
+<section class="counter-section">
+  <div class="counter-grid">
+    <div class="counter-cell">
+      <div class="c-num"><span class="gold count-anim" data-target="5">0</span>분</div>
+      <div class="c-label">평균 견적 완성 시간</div>
+    </div>
+    <div class="counter-cell">
+      <div class="c-num"><span class="count-anim" data-target="10">0</span>년+</div>
+      <div class="c-label">금속가공 실무 경험 기반 설계</div>
+    </div>
+    <div class="counter-cell">
+      <div class="c-num"><span class="gold count-anim" data-target="99" data-suffix="k">0</span></div>
+      <div class="c-label">연간 이용료 (VAT 별도)</div>
+    </div>
+    <div class="counter-cell">
+      <div class="c-num"><span class="count-anim" data-target="0">0</span>원</div>
+      <div class="c-label">추가 설치비 / 유지비</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="tag">주요 기능</div>
+      <h2 class="title">필요한 기능만<br>현장 흐름에 맞게 담았습니다</h2>
+      <p class="section-desc">대단한 자동화보다 중요한 건 반복 계산과 정리를 줄이는 것입니다.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card hi">
+        <div class="feat-ico">⚙️</div>
+        <h3>재질비 자동 계산</h3>
+        <p>봉재·판재·파이프 형태별 소재비를 단가와 치수만 입력하면 자동 산출합니다. 역산 단가 계산기도 내장되어 있습니다.</p>
+      </div>
+      <div class="feat-card hi">
+        <div class="feat-ico">🔩</div>
+        <h3>MCT·CNC 가공비 계산</h3>
+        <p>평면·측면·포켓·황삭(MCT), 외경·내경·나사·홈(CNC) 절삭량 입력 시 가공비 즉시 계산. TAP·HOLE 포함.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ico">🖨️</div>
+        <h3>견적서 즉시 출력</h3>
+        <p>회사 정보를 한 번 설정하면 이후부터는 선택 즉시 견적서 출력·PDF 저장이 가능합니다. 세분화 단가 방식도 지원.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ico">📦</div>
+        <h3>후처리·기타 공정비</h3>
+        <p>아노다이징·도금·도장 등 후처리 단가를 면적 또는 중량 기준으로 설정하고 자동 반영합니다.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ico">🗂️</div>
+        <h3>견적 이력 검색·관리</h3>
+        <p>저장된 모든 견적을 키워드로 검색하고, 불러와서 재사용합니다. 백업·복원도 한 번에 가능합니다.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ico">🌐</div>
+        <h3>웹 기반, 설치 불필요</h3>
+        <p>Chrome·Edge 브라우저만 있으면 PC·노트북·태블릿 어디서든 사용할 수 있습니다. 설치 파일 없음.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HONEST -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">솔직하게 말씀드립니다</div>
+      <h2 class="title">초보자를 대신해<br>견적을 내주는 프로그램이 아닙니다</h2>
+    </div>
+    <div class="honest-wrap">
+      <div class="honest-left">
+        <p>도면 판단, 가공 난이도, 회사별 임율 기준은 사용자가 직접 정해야 합니다.</p>
+      </div>
+      <div>
+        <div class="honest-notice">
+          가공 견적산출 Pro는 현장 경험을 대신하는 제품이 아닙니다.<br>
+          정해진 기준으로 계산과 정리를 도와주는 도구입니다.<br>
+          기본값은 반드시 우리 회사 기준으로 수정해서 사용해야 합니다.
+        </div>
+        <div class="honest-cards">
+          <div class="honest-card">
+            <div class="mark">✓</div>
+            <h4>경험은 사용자</h4>
+            <p>가공 조건과 난이도 판단은 현장 경험이 필요합니다.</p>
+          </div>
+          <div class="honest-card">
+            <div class="mark">✓</div>
+            <h4>계산은 프로그램</h4>
+            <p>반복 계산과 금액 정리를 빠르게 처리합니다.</p>
+          </div>
+          <div class="honest-card">
+            <div class="mark">✓</div>
+            <h4>기준은 회사별</h4>
+            <p>임율·재질·후처리는 우리 회사 기준으로 설정합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section class="section section-white" id="process">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="tag">사용 흐름</div>
+      <h2 class="title">사용 흐름은 단순하게,<br>기준은 회사에 맞게</h2>
+      <p class="section-desc">처음엔 회사 기준을 한 번 설정합니다. 이후부터는 같은 흐름으로 빠르게 견적을 완성합니다.</p>
+    </div>
+    <div class="flow-grid">
+      <div class="flow-step">
+        <div class="flow-num">STEP 01</div>
+        <h3>기준 설정</h3>
+        <p>재질 단가, 임율, 절삭 기본값, 후처리 단가를 회사 기준에 맞게 수정합니다.</p>
+        <div class="flow-time">최초 1회</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">STEP 02</div>
+        <h3>견적 입력</h3>
+        <p>고객사, 품목명, 도면번호, 수량, 소재, 가공 조건을 입력합니다.</p>
+        <div class="flow-time">약 1~2분</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">STEP 03</div>
+        <h3>금액 확인</h3>
+        <p>소재비, 가공비, 후처리비, 기준가, 네고 적용가를 한 화면에서 확인합니다.</p>
+        <div class="flow-time">즉시</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">STEP 04</div>
+        <h3>저장 · 출력</h3>
+        <p>견적 이력으로 저장하고, 필요 시 PDF 견적서로 즉시 출력합니다.</p>
+        <div class="flow-time">약 1분</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICE -->
+<section class="section section-alt">
+  <div class="wrap" style="text-align:center">
+    <div class="section-head center">
+      <div class="tag">요금 안내</div>
+      <h2 class="title">복잡한 요금제 없습니다<br>딱 하나, 연간 정액</h2>
+      <p class="section-desc">한 번 결제하면 1년간 제한 없이 사용합니다.</p>
+    </div>
+    <div class="price-outer">
+      <div class="price-card">
+        <div class="price-badge-top">🏭 금속가공 업체 전용</div>
+        <div class="price-plan">가공 견적산출 Pro</div>
+        <div class="price-num">99,000</div>
+        <div class="price-sub"><strong>원</strong> / 1년 · 1사업장 · VAT 별도</div>
+        <ul class="price-list">
+          <li>빠른 견적 + 정밀 견적 모두 포함</li>
+          <li>MCT · CNC · TAP · HOLE · 후처리 계산</li>
+          <li>견적서 출력 (인쇄 · PDF 저장)</li>
+          <li>재질별 단가 설정 · 역산 계산기</li>
+          <li>견적 이력 저장 · 검색 · 백업</li>
+          <li>같은 사업장 내 기기 수 제한 없음</li>
+          <li>설치 불필요 — 브라우저에서 바로 사용</li>
+        </ul>
+        <a href="https://kmong.com/gig/778137" class="btn-buy" target="_blank" rel="noopener">크몽에서 구매하기 →</a>
+        <p class="price-note">
+          구매 후 이메일로 라이선스 키가 발송됩니다.<br>
+          디지털 상품 특성상 키 발급 후 환불이 어렵습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="tag">자주 묻는 질문</div>
+      <h2 class="title">구매 전 궁금한 점</h2>
+    </div>
+    <div class="faq-list">
+      <details open>
+        <summary>설치가 필요한가요?</summary>
+        <p>별도 설치 없이 웹 브라우저에서 접속해 사용합니다. PC나 브라우저 변경 시에는 같은 주소로 접속한 뒤 라이선스를 다시 인증하고, 설정·견적 데이터는 백업 파일로 이전하는 방식입니다.</p>
+      </details>
+      <details>
+        <summary>가공을 전혀 몰라도 사용할 수 있나요?</summary>
+        <p>추천하지 않습니다. 이 프로그램은 가공 경험을 대신해주는 자동 견적 시스템이 아니라, 사용자가 정한 기준을 바탕으로 계산과 정리를 돕는 도구입니다. 가공 조건 판단은 사용자의 현장 경험이 필요합니다.</p>
+      </details>
+      <details>
+        <summary>회사 PC 여러 대에서 쓸 수 있나요?</summary>
+        <p>1라이선스는 1사업장 기준입니다. 같은 사업장 내에서는 기기 수 제한 없이 사용 가능합니다.</p>
+      </details>
+      <details>
+        <summary>데이터는 어디에 저장되나요?</summary>
+        <p>견적과 설정 데이터는 사용자의 브라우저 저장소(로컬 스토리지)에 보관됩니다. 서버에 업로드되지 않으므로 외부 유출 걱정이 없습니다. PC 변경이나 브라우저 초기화 전에는 반드시 내보내기로 백업해 두세요.</p>
+      </details>
+      <details>
+        <summary>정밀 견적은 어떤 공정을 지원하나요?</summary>
+        <p>MCT 평면·측면·포켓·황삭, CNC 외경·내경·나사·홈·절단, TAP(소경/일반/대경), HOLE, C'B, C'S, PT TAP 등 현장에서 자주 쓰는 항목을 기준으로 구성되어 있습니다.</p>
+      </details>
+      <details>
+        <summary>1년 후에는 어떻게 되나요?</summary>
+        <p>라이선스 만료 후에는 데모 모드로 전환됩니다. 갱신 구매를 하면 동일한 방법으로 재사용할 수 있습니다.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BOTTOM -->
+<div class="wrap">
+  <div class="cta-bottom">
+    <div>
+      <h2>
+        견적 기준이 흔들린다면,<br>
+        <em>먼저 기준부터 정리하세요.</em>
+      </h2>
+      <p>가공 견적산출 Pro는 CNC·MCT 견적을 회사 기준으로 정리하고, 견적 이력과 출력까지 함께 관리하기 위한 현장용 웹 도구입니다. 연 99,000원. 설치 없이 바로 시작합니다.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="https://kmong.com/gig/778137" class="btn-gold" target="_blank" rel="noopener">크몽에서 구매하기 →</a>
+      <a href="https://quote.softlab.ai.kr" class="btn-ghost" target="_blank" rel="noopener">무료 체험 먼저 해보기</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <p>
+      <strong style="color:rgba(255,255,255,.5)">Softlab</strong> · softlab.ai.kr<br>
+      가공 견적산출 Pro는 금속가공업체 실무 경험 기반으로 설계된 B2B SaaS 서비스입니다.<br>
+      이 페이지는 CNC 견적 프로그램, MCT 견적, 가공 견적 자동 계산, 임가공 견적 프로그램을 찾는 분들을 위한 안내 페이지입니다.<br>
+      <a href="https://softlab.ai.kr">softlab.ai.kr</a> ·
+      <a href="https://quote.softlab.ai.kr" target="_blank" rel="noopener">quote.softlab.ai.kr</a> ·
+      <a href="https://kmong.com/gig/778137" target="_blank" rel="noopener">크몽 구매 페이지</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var els = document.querySelectorAll('.count-anim');
+  var done = false;
+  var ob = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting && !done){
+        done = true;
+        els.forEach(function(el){
+          var target = parseInt(el.dataset.target, 10);
+          var suffix = el.dataset.suffix || '';
+          var dur = 1200;
+          var start = performance.now();
+          (function tick(now){
+            var p = Math.min((now - start) / dur, 1);
+            var ease = 1 - Math.pow(1 - p, 3);
+            var val = Math.round(ease * target);
+            el.textContent = val + suffix;
+            if(p < 1) requestAnimationFrame(tick);
+          })(start);
+        });
+      }
+    });
+  }, {threshold: 0.3});
+  var sec = document.querySelector('.counter-section');
+  if(sec) ob.observe(sec);
+})();
+</script>
+
+</body>
+</html>

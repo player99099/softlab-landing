@@ -23,7 +23,7 @@
 
 - `quote` → CNAME → Vercel (**machining-quote** 앱) — 기존 유지
 - `@` → A → `76.76.21.21` → Vercel (**softlab-landing** 랜딩)
-- `www` → CNAME → `cname.vercel-dns.com` → 랜딩
+- `www` → A → `76.76.21.21` → 랜딩
 
 상세: [GABIA-DNS.md](./GABIA-DNS.md)
 

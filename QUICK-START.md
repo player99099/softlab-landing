@@ -1,24 +1,21 @@
-# 🚀 지금 해야 할 일 (딱 1가지)
+# 🚀 지금 해야 할 일
 
-Vercel 배포는 **완료**되었습니다.
+GitHub push · Vercel Git 연동 · 프로덕션 배포 **완료** (2026-06-24)
 
-**미리보기:** https://softlab-landing-sooty.vercel.app
+**라이브:** https://softlab.ai.kr  
+**미리보기:** https://softlab-landing-sooty.vercel.app  
+**코드:** https://github.com/player99099/softlab-landing
 
 ---
 
-## 가비아 DNS에 2줄만 추가
+## 가비아 DNS (아직 안 열리면)
 
-1. https://www.gabia.com → **My가비아**
-2. **softlab.ai.kr** → **DNS 관리**
-3. 아래 **2개만 추가** (`quote` 레코드는 건드리지 마세요)
+`softlab.ai.kr`이 안 열릴 때만 확인하세요. `quote` 레코드는 건드리지 마세요.
 
 | 호스트 | 타입 | 값 |
 |--------|------|-----|
 | `@` | A | `76.76.21.21` |
 | `www` | A | `76.76.21.21` |
-
-4. 저장 후 **10분~몇 시간** 기다리기
-5. https://softlab.ai.kr 접속 확인
 
 ---
 

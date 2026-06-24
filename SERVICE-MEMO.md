@@ -77,7 +77,11 @@ node web/server/scripts/test-deploy.js https://quote.softlab.ai.kr
 
 ---
 
-## 5. Resend (나중)
+## 5. Resend (메일)
 
-발신: `onboarding@resend.dev` → 인증 후 `noreply@softlab.ai.kr`  
-가비아 DNS에 Resend SPF/DKIM 추가
+발신: `noreply@softlab.ai.kr` (Vercel `RESEND_FROM` 반영됨)  
+**도메인 인증 필요** — `machining-quote/web/server/RESEND-DOMAIN-SETUP.md` 참고
+
+가비아 DNS에 Resend TXT/CNAME 추가 → Resend Verified 후 구매자 메일 자동 발송
+
+메일 실패해도 발급 페이지에 **키 표시** (크몽 문의로 수동 전달 가능)
